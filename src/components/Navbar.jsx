@@ -7,16 +7,33 @@ function Navbar() {
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth > 960) {
+      if (window.innerWidth > 1024) {
+        setIsMenuOpen(false)
+      }
+    }
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') {
         setIsMenuOpen(false)
       }
     }
 
     window.addEventListener('resize', handleResize)
+    window.addEventListener('keydown', handleKeyDown)
+
     return () => {
       window.removeEventListener('resize', handleResize)
+      window.removeEventListener('keydown', handleKeyDown)
     }
   }, [])
+
+  useEffect(() => {
+    document.body.classList.toggle('has-open-mobile-menu', isMenuOpen)
+
+    return () => {
+      document.body.classList.remove('has-open-mobile-menu')
+    }
+  }, [isMenuOpen])
 
   const closeMenu = () => {
     setIsMenuOpen(false)
@@ -27,7 +44,7 @@ function Navbar() {
   }
 
   return (
-    <header className="navbar">
+    <header className={isMenuOpen ? 'navbar is-menu-open' : 'navbar'}>
       <div className="container navbar__inner" data-animate="reveal">
         <a className="brand" href="#home" onClick={closeMenu}>
           {BRAND_NAME}
@@ -67,7 +84,11 @@ function Navbar() {
         </button>
       </div>
 
-      <div id="mobile-navigation" className="navbar__mobile" hidden={!isMenuOpen}>
+      <div
+        id="mobile-navigation"
+        className="navbar__mobile"
+        aria-hidden={!isMenuOpen}
+      >
         <div className="container navbar__mobile-inner">
           <nav className="navbar__mobile-links" aria-label="Mobile navigation">
             {NAV_LINKS.map((link) => (

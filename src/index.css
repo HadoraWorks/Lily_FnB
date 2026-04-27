@@ -23,6 +23,10 @@ body {
   min-width: 320px;
 }
 
+body.has-open-mobile-menu {
+  overflow: hidden;
+}
+
 #root {
   min-height: 100svh;
 }
