@@ -235,10 +235,14 @@ a {
   gap: 2rem;
   align-items: center;
   width: 100%;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  justify-items: center;
 }
 
 .hero__copy {
   max-width: 620px;
+  margin: 0 auto;
+  text-align: left;
 }
 
 .hero__copy h1 {
@@ -528,11 +532,12 @@ a {
 }
 
 .location__details h3 {
+  justify-content: center;
   margin: 0 0 0.3rem;
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  font-size: 1rem;
+  text-align: left;
   color: var(--color-secondary);
 }
 
